@@ -1,0 +1,46 @@
+services:
+  tailscale:
+    image: tailscale/tailscale:latest
+    container_name: zpe-tailscale-gateway
+    network_mode: host
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    volumes:
+      - ./data/tailscale-state:/var/lib/tailscale
+      - /dev/net/tun:/dev/net/tun
+    environment:
+      - TS_STATE_DIR=/var/lib/tailscale
+      - TS_USERSPACE=false
+      - TS_EXTRA_ARGS=--reset --accept-dns=false --accept-routes --advertise-routes=${TS_ADVERTISE_ROUTES:-192.168.74.0/24} --advertise-exit-node
+
+  nodegrid-mcp:
+    build:
+      context: ./docker/nodegrid-mcp
+      dockerfile: Dockerfile
+    image: nodegrid-readonly-gateway:1.9.4
+    container_name: nodegrid-mcp
+    network_mode: host
+    restart: unless-stopped
+    environment:
+      - MCP_TRANSPORT=streamable-http
+      - MCP_HOST=0.0.0.0
+      - MCP_PORT=8000
+      - MCP_STREAMABLE_HTTP_PATH=/mcp
+      - NODEGRID_BASE_URL=${NODEGRID_BASE_URL:-https://127.0.0.1}
+      - NODEGRID_USERNAME=${NODEGRID_USERNAME:-admin}
+      - NODEGRID_PASSWORD=${NODEGRID_PASSWORD:?NODEGRID_PASSWORD must be configured}
+      - NODEGRID_VERIFY_TLS=${NODEGRID_VERIFY_TLS:-0}
+
+  hermes:
+    image: nousresearch/hermes-agent:latest
+    container_name: hermes
+    network_mode: host
+    restart: unless-stopped
+    volumes:
+      - ./data/hermes:/opt/data
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - SLACK_BOT_TOKEN=${SLACK_BOT_TOKEN:-}
+      - SLACK_APP_TOKEN=${SLACK_APP_TOKEN:-}

@@ -1,0 +1,33 @@
+_config_version: 50
+agent:
+  max_turns: 150
+  reasoning_effort: low
+  verbose: false
+
+compression:
+  enabled: true
+  target_ratio: 0.2
+  threshold: 0.5
+
+mcp_servers:
+  modem:
+    url: http://127.0.0.1:8000/mcp
+
+model:
+  api_mode: chat_completions
+  base_url: https://openrouter.ai/api/v1
+  default: nvidia/nemotron-3.5-lightning:free
+  provider: openrouter
+
+platforms:
+  slack:
+    enabled: true
+    # Configure your Slack App & Bot tokens via environment or secrets
+
+runtime:
+  nofile_soft_limit: 4096
+
+telemetry:
+  shared_metrics:
+    enabled: false
+    send: false
