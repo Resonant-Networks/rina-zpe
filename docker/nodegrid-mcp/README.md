@@ -30,3 +30,6 @@ docker build -t nodegrid-readonly-gateway:1.9.4 .
 # Run container
 ./docker-run.sh
 ```
+
+## Changing Target Nodegrid Host
+To point this MCP server to a new or remote Nodegrid host, follow the step-by-step guide in [**`docs/updating-nodegrid-host.md`**](../../docs/updating-nodegrid-host.md).

@@ -98,12 +98,15 @@ python3 dances/light_sweep_dance.py
 
 ---
 
-## Troubleshooting Guide
-Refer to [`docs/troubleshooting.md`](docs/troubleshooting.md) for detailed diagnostics, including:
-- Fixing Starlette HTTP 307 redirects on MCP endpoints.
-- Resolving FastMCP `406 Not Acceptable` errors when pairing with modern Hermes builds.
-- Recovering from stale `.mcp-discovery.lock` locks.
-- Clearing poisoned Slack conversational threads in `state.db`.
+## Operations & Troubleshooting Guides
+- [**Updating Nodegrid Host URL & MCP Configuration**](docs/updating-nodegrid-host.md): Step-by-step instructions to repoint the MCP server to a new Nodegrid instance.
+- [**Troubleshooting Playbook**](docs/troubleshooting.md): Detailed diagnostics, including:
+  - Fixing Starlette HTTP 307 redirects on MCP endpoints.
+  - Resolving FastMCP `406 Not Acceptable` errors when pairing with modern Hermes builds.
+  - Recovering from stale `.mcp-discovery.lock` locks.
+  - Clearing poisoned Slack conversational threads in `state.db`.
+- [**Architecture Overview**](docs/architecture.md): Container interactions and host network topology.
+- [**Nodegrid API Reference**](docs/nodegrid-api.md): REST endpoints, session tickets, and port controls.
 
 ---
 
